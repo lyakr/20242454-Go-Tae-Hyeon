@@ -29,7 +29,7 @@
 
 //2-1
 void drawingtrain(int train_length, int C, int Z, int M) {
-    for (int i = 0; i < train_length+2; i++)
+    for (int i = 0; i < train_length + 2; i++)
     {
         printf("#");
     }
@@ -52,14 +52,14 @@ void drawingtrain(int train_length, int C, int Z, int M) {
     }
     printf("#");
     printf("\n");
-    for (int i = 0; i < train_length+2; i++)
+    for (int i = 0; i < train_length + 2; i++)
     {
         printf("#");
     }
     printf("\n");
 }
 
-   
+
 int main(void) {
     int train_length = 0, percentile_probability = 0, Stamina = 0;
     int C = 0, Z = 0, M = 0;
@@ -73,7 +73,7 @@ int main(void) {
 
     // 인트로
     printf("게임에 오신 것을 환영합니다!\n");
-   
+
     //2-2
     // 기차 길이와 확률 입력 받기
     printf("기차 길이를 입력하세요 (15~50): ");
@@ -90,7 +90,7 @@ int main(void) {
         printf("확률을 입력하세요 (10~90)>>");
         scanf_s("%d", &percentile_probability);
     }
-    
+
     //마동석 체력
     printf("Stamina(0~5)>>");
     scanf_s("%d", &Stamina);
@@ -122,7 +122,7 @@ int main(void) {
         //시민 이동
         if (C -= 100 - percentile_probability < move)
         {
-            if (C>0&&C-1!=Z&&C-1 !=M)
+            if (C > 0 && C - 1 != Z && C - 1 != M)
             {
                 C--;
                 if (citizen_aggro + 1 <= AGGRO_MAX) {
@@ -131,22 +131,22 @@ int main(void) {
             }
             else
             {
-                if (citizen_aggro-1>=AGGRO_MIN)
+                if (citizen_aggro - 1 >= AGGRO_MIN)
                 {
                     citizen_aggro--;
                 }
             }
-       
+
         }
-        
+
         //좀비 이동
         if (zombie_pull_success)
         {
-            printf("다음 턴 이동 불가 -> %d\n",turn);
-            zombie_pull_success=0;
+            printf("다음 턴 이동 불가 -> %d\n", turn);
+            zombie_pull_success = 0;
         }
         if (turn % 2 == 0) {
-            if (z>M&&Z-1!=C)
+            if (Z > M && Z - 1 != C)
             {
                 Z--;
             }
@@ -156,7 +156,7 @@ int main(void) {
         }
         else
         {
-            if (Z>C&&Z-1!=M)
+            if (Z > C && Z - 1 != M)
             {
                 Z--;
             }
@@ -165,59 +165,59 @@ int main(void) {
             }
         }
 
-        if ((Z==C+!||Z==C-1)&&Z==M+1||Z==M-1)
+        if ((Z == C + 1|| Z == C - 1) && Z == M + 1 || Z == M - 1)
         {
             if (madoongseok_aggro > citizen_aggro) {
                 Stamina--;
                 printf("zombin madongseok Hit-> madongseok Stamina:%d\n", Stamina);
-                if (Stamina==STH_MIN)
+                if (Stamina == STH_MIN)
                 {
                     printf("madongseok Stamina zero\n");
                     break;
                 }
-            }
-            else
+            }else
             {
                 printf("zombin citizen Hit game over\n");
                 break;
             }
         }
-        else{
+        else {
             printf(" 좀비 이동 불가 -> %d\n", turn);
         }
-       
+
         //마동석 이동
-        if (M-1==Z||M+1==Z)
+        if (M - 1 == Z || M + 1 == Z)
         {
             printf("madongseok action(0: rest,1:provoke, 2:pull)>>");
             scanf_s("%d", &action);
-            if (action==ACTION_REST||action==ACTION_PROVEOKE||action==ACTION_PULL)
+            if (action == ACTION_REST || action == ACTION_PROVEOKE || action == ACTION_PULL)
             {
                 break;
             }
         }
-        if (action==ACTION_REST||action==ACTION_PROVEOKE)
+        if (action == ACTION_REST || action == ACTION_PROVEOKE)
         {
             printf("madongseok rest:aggro Stamina no change\n");
-        }if (action == ACTION_REST || action == ACTION_PROVEOKE) {
-            if (action==ACTION_REST)
+        }
+        if (action == ACTION_REST || action == ACTION_PROVEOKE) {
+            if (action == ACTION_REST)
             {
                 if (madoongseok_aggro > AGGRO_MIN) {
                     madoongseok_aggro--;
                     printf("madongseok rest:(aggro:%d -> %d\n", madoongseok_aggro + 1, madoongseok_aggro);
                 }
-                else if (action==ACTION_PROVEOKE)
+                else if (action == ACTION_PROVEOKE)
                 {
                     printf("madongseok rest:aggro Stamina no change\n");
                 }
             }
-            else if (action==ACTION_PULL)
+            else if (action == ACTION_PULL)
             {
                 int pull_success = rand() % 101;
-                if (pull_success<100-percentile_probability)
+                if (pull_success < 100 - percentile_probability)
                 {
                     printf("madongseok pulled zombin");
-                    madoongseok_aggro +=2;
+                    madoongseok_aggro += 2;
                     Stamina--;
                     zombie_pull_success = 1;
                     printf("madongseok : %d (aggro : %d -> %d, stamuna: %d -> %d)\n", M, madoongseok_aggro - 2, madoongseok_aggro, Stamina + 1, Stamina);
@@ -269,16 +269,16 @@ int main(void) {
                         Stamina++;
                     }
                 }
+            }
+
         }
-       
-    }
-        
+
 
 
         // 기차 출력
         drawingtrain(train_length, C, Z, M);
         //게임 종료
-        if (C==1)
+        if (C == 1)
         {
             printf("YOU WIN");
             break;
