@@ -99,7 +99,7 @@ int main(void) {
         printf("Stamina(0~5)>>");
         scanf_s("%d", &Stamina);
     }
-    Sleep(3000);
+    
 
     M = train_length / 2 + 7;
     Z = train_length / 2 + 6;
